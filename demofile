@@ -3,7 +3,11 @@ pipeline {
     stages {
         stage('Checkout') {          
             steps {
-                git branch: "main", url: "https://github.com/KhushiJain2004/CICD_Maven.git"
+                withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
+                    git branch: 'main',
+                        credentialsId: 'github-token',
+                        url: "https://your-github-username:${GITHUB_TOKEN}@github.com/KhushiJain2004/CICD_Maven.git"
+                }
             }
         }
         stage('Build') {
